@@ -46,6 +46,16 @@ pipeline {
             }
         }
 
+        stage('Stop Existing Services') {
+            steps {
+                script {
+                    // Stop and remove existing Docker Compose services
+                    echo 'Stopping existing services...'
+                    sh 'docker-compose -f docker-compose.yml down'
+                }
+            }
+        }
+
         stage('Start Docker Compose') {
             steps {
                 script {
@@ -63,4 +73,4 @@ pipeline {
             sh 'docker logout'
         }
     }
-} 
+}
